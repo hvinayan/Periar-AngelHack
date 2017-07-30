@@ -1,0 +1,60 @@
+{% extends 'products/base.html' %}
+{% block title %}{{ product }}{% endblock %}
+{% block products_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid songs-container">
+    {% if stat %}
+                        <div class="alert alert-success" role="alert">{{ stat }}</div>
+    {% endif %}
+    <div class="row">
+        <div class="col-sm-4 " style = "padding:50px">
+                    <a href="{% url 'detail' product.id %}">
+                            <img src="{{ product.image }}" class="img-responsive">
+                    </a>
+                    <br>
+                    <br>
+                    <div style="padding-left=:0px" class="star-ratings-sprite"><span style="width:{{ rating }}%" class="star-ratings-sprite-rating"></span></div>
+
+        </div>
+        <div class="col-sm-8 ">
+            <h1>{{ product.pname }} <span class="label label-default">Rs: {{ product.price }}</span><br>
+                        <small>{{ product.pdisc }}</small></h1>
+                    <h3>Seller: {{ product.seller }}</h3>
+                    <a style="margin-bottom:20px" href="/{{ product.pk }}/add_cart " target="_self" type="submit" class="btn btn-default"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp&nbspAdd to Cart<a>
+
+
+            <br>
+
+            <div class="btn-group" role="group">
+              <a href="/{{ product.pk }}/rate_p" target="_self" type="submit" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></a>
+              <a href="/{{ product.pk }}/rate_n" target="_self" type="submit" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></a>
+            </div>
+
+
+            <br><br>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">cats123</h3>
+                </div>
+                <div style="padding:20px" class="pane-body">
+                    <p>Awesome pairs I really did like it a lot</p>
+                </div>
+            </div>
+            <div class="input-group">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Post</button>
+              </span>
+              <input type="text" class="form-control" placeholder="Comment">
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+</div>
+
+
+{% endblock %}

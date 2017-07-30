@@ -1,0 +1,128 @@
+{% extends 'products/base.html' %}
+{% load staticfiles %}
+{% block body %}
+<div class="well container-fluid">
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <a style="margin-left:500px" href="/cart/" target="_self" type="submit" class="btn btn-default"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp&nbspFinish to Cart<a>
+    <div class="demo">
+      <header class="demo__header"></header>
+      <div class="demo__content">
+        <div class="demo__card-cont">
+            {% for product in product_list %}
+
+                  <div class="demo__card" href="/{{ product.pk }}/add_cart">
+                    <div class="demo__card__top indigo">
+                      <img class="demo__card__img" src="{{ product.image }}">
+                      <p class="demo__card__name">{{ product.pname }}</p>
+                    </div>
+                    <div class="demo__card__btm">
+                      <p class="demo__card__we">{{ product.pdisc }} <span class="label label-default">Rs: {{ product.price }}</span></p>
+                    </div>
+                    <div class="demo__card__choice m--reject"></div>
+                    <div class="demo__card__choice m--like"></div>
+                    <div class="demo__card__drag"></div>
+                  </div>
+            {% endfor %}
+
+
+
+
+
+        </div>
+        <p class="demo__tip">Swipe <strong>right to take<br>left to hate</strong></p>
+      </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+
+      var animating = false;
+      var cardsCounter = 0;
+      var numOfCards = {{ count }};
+      var decisionVal = 80;
+      var pullDeltaX = 0;
+      var deg = 0;
+      var $card, $cardReject, $cardLike;
+      function httpGet(theUrl){
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+            xmlHttp.send( null );
+        }
+
+      function pullChange() {
+        animating = true;
+        deg = pullDeltaX / 10;
+        $card.css("transform", "translateX("+ pullDeltaX +"px) rotate("+ deg +"deg)");
+
+        var opacity = pullDeltaX / 100;
+        var rejectOpacity = (opacity >= 0) ? 0 : Math.abs(opacity);
+        var likeOpacity = (opacity <= 0) ? 0 : opacity;
+        $cardReject.css("opacity", rejectOpacity);
+        $cardLike.css("opacity", likeOpacity);
+      };
+
+      function release() {
+
+        if (pullDeltaX >= decisionVal) {
+          $card.addClass("to-right");
+          console.log(cardsCounter);
+          var cget = cardsCounter+1;
+          httpGet('/'+cget+'/add_cart');
+        } else if (pullDeltaX <= -decisionVal) {
+          $card.addClass("to-left");
+          console.log(cardsCounter);
+        }
+
+        if (Math.abs(pullDeltaX) >= decisionVal) {
+          $card.addClass("inactive");
+
+          setTimeout(function() {
+            $card.addClass("below").removeClass("inactive to-left to-right");
+            cardsCounter++;
+            if (cardsCounter === numOfCards) {
+              window.open("/cart/","_self")
+              cardsCounter = 0;
+              $(".demo__card").removeClass("below");
+            }
+          }, 300);
+        }
+
+        if (Math.abs(pullDeltaX) < decisionVal) {
+          $card.addClass("reset");
+        }
+
+        setTimeout(function() {
+          $card.attr("style", "").removeClass("reset")
+            .find(".demo__card__choice").attr("style", "");
+
+          pullDeltaX = 0;
+          animating = false;
+        }, 300);
+      };
+
+      $(document).on("mousedown touchstart", ".demo__card:not(.inactive)", function(e) {
+        if (animating) return;
+
+        $card = $(this);
+        $cardReject = $(".demo__card__choice.m--reject", $card);
+        $cardLike = $(".demo__card__choice.m--like", $card);
+        var startX =  e.pageX || e.originalEvent.touches[0].pageX;
+         console.log(numOfCards);
+
+        $(document).on("mousemove touchmove", function(e) {
+          var x = e.pageX || e.originalEvent.touches[0].pageX;
+          pullDeltaX = (x - startX);
+          if (!pullDeltaX) return;
+          pullChange();
+        });
+
+        $(document).on("mouseup touchend", function() {
+          $(document).off("mousemove touchmove mouseup touchend");
+          if (!pullDeltaX) return; // prevents from rapid click events
+          release();
+        });
+      });
+
+    });
+</script>
+{% endblock %}

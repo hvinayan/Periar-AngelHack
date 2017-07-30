@@ -1,0 +1,42 @@
+{% extends 'products/base.html' %}
+{% block title %}About Us{% endblock %}
+{% block about_active %}active{% endblock %}
+{% load staticfiles %}
+{% block body %}
+<div class="container-fluid">
+
+        <div class="jumbotron">
+            <h1>About Us</h1>
+            <p>Heres the team behind Periar. We've worked our hearts and souls into this.</p>
+        </div>
+
+    <div id="team" class="container-fluid text-center">
+          <hr>
+        <div class="row slideanim">
+            <div class="col-sm-3">
+                <img src="{% static 'products/images/' %}t1.JPG" width=200 height=200 class="img-circle" >
+                <h4>Vinayan Hari</h4>
+                <p>Back-end Developer, Algorithms</p>
+            </div>
+            <div class="col-sm-3">
+              <img src="{% static 'products/images/' %}t2.jpg" width=200 height=200 class="img-circle">
+              <h4>Krishna Kumar K S</h4>
+              <p>UI and Front-end Developer</p>
+            </div>
+            <div class="col-sm-3">
+                <img src="{% static 'products/images/' %}t3.jpg" width=200 height=200 class="img-circle">
+                <h4>Vishnu M S</h4>
+                <p>Experience Architect, UX Designer, Always Missing.</p>
+            </div>
+            <div class="col-sm-3">
+                <img src="{% static 'products/images/' %}t4.jpg" width=200 height=200 class="img-circle">
+                <h4>Sariga Raj</h4>
+                <p>Assistant professor, Cochin University, Mentor</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,114 @@
+u<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Shop: Periar{% endblock %}</title>
+    {% load staticfiles %}
+    <link rel="shortcut icon" type="image/png" href="{%  static 'favicon.ico' %}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{% static 'products/style1.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'products/style.css' %}"/>
+
+    <link href="font-awesome.css" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/fc970de739.js"></script>
+
+    <script src="{% static 'products/js/main.js' %}"></script>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div id="#top" class="container-fluid">
+
+        <!-- Header -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'index' %}">Periar</a>
+        </div>
+
+        <!-- Items -->
+        <div class="collapse navbar-collapse" id="topNavBar">
+            <ul class="nav navbar-nav">
+                <div class="collapse navbar-collapse" id="topNavBar">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown {% block  category_active %}{% endblock %}">
+                          <a class="dropdown-toggle" data-toggle="dropdown" href="">Men
+                          <span class="caret"></span></a>
+                          <ul class="dropdown-menu">
+                            <li><a href="shoes">Shoes</a></li>
+                            <li><a href="shirts">Shirts</a></li>
+                            <li><a href="bottomwear">Bottomwear</a></li>
+                            <li><a href="accessories">Accessories</a></li>
+                          </ul>
+                         </li>
+                    </ul>
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown ">
+                          <a class="dropdown-toggle" data-toggle="dropdown" href="">Women
+                          <span class="caret"></span></a>
+                          <ul class="dropdown-menu">
+                            <li><a href="shoes">Shoes</a></li>
+                            <li><a href="shirts">Shirts</a></li>
+                            <li><a href="bottomwear">Bottomwear</a></li>
+                            <li><a href="accessories">Accessories</a></li>
+                          </ul>
+                         </li>
+                    <li class=""><a href="#">&nbsp; Other</a></li>
+                    </ul>
+
+            </ul>
+            <form class="navbar-form navbar-left" role="search" method="get" action="/search">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="q" value="{{ request.GET.q }}">
+                </div>
+                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>  Search</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="{% url 'about' %}">
+                        <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>&nbsp; About
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>&nbsp; Talk To Us
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'logout_user' %}">
+                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
+{% block body %}
+{% endblock %}
+</body>
+<footer  class="container-fluid text-center bg-grey">
+    <br><br><br>
+    <div class="well">
+      <a href="#top" title="To Top">
+        <span class="glyphicon glyphicon-chevron-up"></span>
+      </a>
+      <br>
+        <a href="https://twitter.com/shopPeriar"><span class="fa fa-twitter"></span></a>
+        &nbsp;
+        <a href="https://www.facebook.com/shopPeriar/"><span class="fa fa-facebook"></span></a>
+        &nbsp;
+        <a href="https://github.com/hvinayan"><span class="fa fa-github"></span></a>
+        &nbsp;
+        <a href="mailchimpurl"><span class="fa fa-newspaper-o"></span></a>
+        &nbsp;
+      <p>Made with  <i class="fa fa-heart" aria-hidden="true"></i>  at AngelHack</p>
+      <p><i class="fa fa-envelope" aria-hidden="true"></i>  <a href="mailto:hello@periar.store">hello@periar.store</a></p>
+  </div>
+</footer>
+</html>

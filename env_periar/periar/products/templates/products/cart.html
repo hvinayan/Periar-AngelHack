@@ -1,0 +1,37 @@
+{% extends 'products/base.html' %}
+{% block title %}{{ user }}'s Cart{% endblock %}
+{% block products_active %}active{% endblock %}
+
+{% block body %}
+
+
+
+<div class="container-fluid songs-container">
+
+    <div class="row">
+        <h1>{{ user }}'s Cart</h1>
+        <br>
+        {% for cart in cart_list %}
+            <div class="col-sm-4 col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <a href="/{{ cart.pid.pk }}/">
+                                <img src="{{ cart.pid.image }}" class="img-responsive">
+                        </a>
+                        <h2>{{ cart.pid.pname }}</h2>
+                        <p><span class="label label-default">Rs: {{ cart.pid.price }}</span> {{ cart.pid.pdisc }}</p>
+                        <a type="button" class="btn btn-default" href="/{{ cart.pk }}/del/"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+
+
+
+{% endblock %}
